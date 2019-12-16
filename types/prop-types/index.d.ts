@@ -33,7 +33,7 @@ export const nominalTypeHack: unique symbol;
 
 export type IsOptional<T> = undefined extends T ? true : false;
 
-export type RequiredKeys<V> = { [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
+export type RequiredKeys<V> = { [K in keyof V]-?: Exclude<V[K], undefined> extends Requireable<infer T> ? never : Exclude<V[K], undefined> extends Validator<infer T> ? K : never }[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
 
